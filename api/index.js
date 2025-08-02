@@ -23,7 +23,9 @@ async function parsePMIData() {
     
     const tableText = table.text().split('\n')
       .map(item => item.trim())
-      .filter(item => item !== '');
+
+    //   console.log(tableText);
+      
     
     const data = {
       date: date,
@@ -31,14 +33,14 @@ async function parsePMIData() {
       rows: []
     };
     
-    for (let i = 16; i < tableText.length - 19; i += 19) {
-      const block = tableText.slice(i, i + 19);
+    for (let i = 19; i < tableText.length - 19; i += 38) {
+      const block = tableText.slice(i, i + 38);
       data.rows.push([
         block[1],  // номер
         block[2],  // согласие
         block[3],  // приоритет
         block[7],  // баллы
-        block[16]  // статус
+        block[34]  // статус
       ]);
     }
     
@@ -135,7 +137,7 @@ app.get('/', (req, res) => {
       </style>
     </head>
     <body>
-      <h1>Рейтинг поступающих на ПМИ МГУ</h1>
+      <h1>Рейтинг поступающих на ПМИ МГУ для Вольвача Дмитрия Витальивича</h1>
       <p>Сервер автоматически парсит данные с официального сайта МГУ и формирует Excel-файл</p>
       <a href="/download-pmi-excel" class="btn">Скачать Excel-файл</a>
       <p><small>При проблемах со скачиванием обновите страницу или попробуйте позже</small></p>
