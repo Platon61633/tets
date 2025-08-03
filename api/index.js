@@ -19,7 +19,7 @@ async function parsePMIData() {
     
     const $ = cheerio.load(response.data);
     const date = $('p').eq(15).text().trim();
-    const table = $('table').eq(8);
+    const table = $('table').eq(13);
     
     const tableText = table.text().split('\n')
       .map(item => item.trim())
